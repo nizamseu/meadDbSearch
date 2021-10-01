@@ -4,10 +4,13 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions } from "@mui/material";
+import { useHistory } from "react-router";
 const Food = (props) => {
-  const { strMeal, strCategory, strInstructions, strMealThumb, strTags, strYoutube } = props.item;
+  const { idMeal, strMeal, strCategory, strInstructions, strMealThumb, strTags, strYoutube } = props.item;
+  const histrory = useHistory();
+
   const handleDetails = () => {
-    console.log("clicked");
+    histrory.push(`/details/${idMeal}`);
   };
 
   return (

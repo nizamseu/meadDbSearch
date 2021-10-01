@@ -6,7 +6,10 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { Container } from "@mui/material";
+import { Box, margin } from "@mui/system";
 const Details = () => {
+  const histrory = useHistory();
   const { id } = useParams();
   const [meal, setMeal] = useState([]);
   useEffect(() => {
@@ -15,26 +18,43 @@ const Details = () => {
       .then((res) => res.json())
       .then((data) => setMeal(data?.meals[0]));
   }, []);
-  const { idMeal, strMeal, strCategory, strInstructions, strMealThumb, strTags, strYoutube } = meal;
+  const { idMeal, strArea, strMeal, strCategory, strInstructions, strMealThumb, strTags, strYoutube } = meal;
+  const back = () => {
+    histrory.push("/");
+  };
+  console.log(meal);
   return (
-    <div>
+    <Container maxWidth="sm">
+      <Typography>
+        <p>
+          <h1>
+            Food Details{" "}
+            <Button variant="contained" onClick={back}>
+              Go Back
+            </Button>
+          </h1>
+        </p>
+      </Typography>
       <Card>
         <CardMedia component="img" height="140" width="550" image={strMealThumb} alt="green iguana" />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            {strMeal}
+            <hr />
+            {strMeal} | {strArea} | {strCategory}
+            <hr />
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {strInstructions}
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small">Share</Button>
-          <Button size="small">Learn More</Button>
+          {/* <Button size="small">Share</Button> */}
+          <Button size="small">
+            <a href={strYoutube}>Learn More</a>
+          </Button>
         </CardActions>
       </Card>
-      <Link to={"/"}>Go Back</Link>
-    </div>
+    </Container>
   );
 };
 
